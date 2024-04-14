@@ -38,14 +38,14 @@ jobs:
         env:
           FIRESTORE_PROJECT_ID: ${{ secrets.FIRESTORE_GCP_PROJECT }}
           PORT: 8081
-      createKeyFunc:
+      createKeyFnc:
         image: ${{ secrets.FIRESTORE_CREATE_KEY_FNC }}
         env:
           GCP_PROJECT: ${{ secrets.FIRESTORE_GCP_PROJECT }}
           FIRESTORE_EMULATOR_HOST: firestore:8081
-        command: pnpm functions:createkeyfunc
-      ports:
-        - 8411:8411
+          FUNC_CMD: 'npm run functions:createkeyfnc'
+        ports:
+          - 8411:8411
     strategy:
       matrix:
         os: [ windows-latest, macos-latest, ubuntu-latest ]
@@ -71,6 +71,10 @@ jobs:
       - name: Install dependencies
         id: set-deps
         run: pnpm install --frozen-lockfile
+
+      - name: Generate seed
+        id: seed
+        run: pnpm run seed
         
       - name: Run all tests
         id: test
