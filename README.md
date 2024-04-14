@@ -77,4 +77,6 @@ pnpm dev
 ```
 Após gerar a seed, lembre-se de que o firestore está sendo executado localmente e armazenando os dados em memória. Portanto, toda vez que você desativar os containers, execute ```pnpm seed``` novamente.
 
+Ao executar a seed, você vai ter em mãos no seu terminal um token JWT, use-o para acessar este proxy, que por padrão já possui um redirecionamento no endpoint /registryapi, na qual pode ser customizado na variável de ambiente 'URL_TO_REDIRECT', onde o seu valor vai resultar no redirecionamento que o endpoint /registryapi vai fazer, ou seja, se o valor for https://github.com, ao acessar o endpoint citado com o token, você vai ser jogado para o site do github.
+
 Não se esqueça de ativar o husky com ```pnpm set-hooks``` para poder trabalhar com os git hooks.
