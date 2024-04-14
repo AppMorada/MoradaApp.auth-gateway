@@ -1,5 +1,5 @@
 import { ErrorListener } from '../errorListener';
-import { Request, Response } from '@google-cloud/functions-framework';
+import { type Request, type Response } from '@google-cloud/functions-framework';
 import { App } from './app';
 import { InternalServerError } from './httpErrors/internalServer';
 

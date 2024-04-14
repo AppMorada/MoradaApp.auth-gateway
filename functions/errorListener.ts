@@ -1,4 +1,4 @@
-import { Adapters } from './authGatewayFnc/app/adapters';
+import { type Adapters } from './authGatewayFnc/app/adapters';
 
 export class ErrorListener {
 	constructor(private readonly adapters: Adapters) {}

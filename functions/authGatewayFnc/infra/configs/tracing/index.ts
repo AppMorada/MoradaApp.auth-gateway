@@ -20,15 +20,13 @@ export class TraceHandler {
 		this.exporter =
 			process.env.NODE_ENV !== 'production'
 				? new ZipkinExporter({
-						serviceName: process.env.SERVICE_NAME,
-						url: process.env.ZIPKIN_TRACE_URL,
-					})
+					serviceName: process.env.SERVICE_NAME,
+					url: process.env.ZIPKIN_TRACE_URL,
+				})
 				: new TraceExporter({
-						projectId: process.env.LOGGING_PROJECT,
-						credentials: JSON.parse(
-							process.env.OBSERVER_AGENT as string,
-						),
-					});
+					projectId: process.env.LOGGING_PROJECT,
+					credentials: JSON.parse(process.env.OBSERVER_AGENT!),
+				});
 
 		this.spanProcessor =
 			process.env.NODE_ENV !== 'production'
@@ -44,7 +42,7 @@ export class TraceHandler {
 
 		this.tracer.addSpanProcessor(this.spanProcessor);
 
-		const shutdown = async () => await this.tracer.shutdown();
+		const shutdown = async () => this.tracer.shutdown();
 		process.on('SIGTERM', shutdown);
 		process.on('SIGINT', shutdown);
 		process.on('SIGBREAK', shutdown);

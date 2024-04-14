@@ -1,18 +1,18 @@
 import { UUID } from './VO/UUID';
 
-interface IProps {
+type IProps = {
 	role: number;
-	userId?: UUID | null;
-}
+	userId?: UUID | undefined;
+};
 
-export interface IMinimalCondominiumMemberInput {
+export type IMinimalCondominiumMemberInput = {
 	role: number;
-	userId?: string | null;
-}
+	userId?: string | undefined;
+};
 
 export class MinimalCondominiumMember {
 	private readonly _id: UUID;
-	private props: IProps;
+	private readonly props: IProps;
 
 	constructor(input: IMinimalCondominiumMemberInput, id?: string) {
 		this._id = id ? new UUID(id) : UUID.genV4();
@@ -29,13 +29,15 @@ export class MinimalCondominiumMember {
 	get role() {
 		return this.props.role;
 	}
+
 	set role(input: number) {
 		this.props.role = input;
 	}
 
-	get userId(): UUID | null | undefined {
+	get userId(): UUID | undefined {
 		return this.props.userId;
 	}
+
 	set userId(input: UUID) {
 		this.props.userId = input;
 	}

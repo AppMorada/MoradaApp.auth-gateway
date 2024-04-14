@@ -1,14 +1,14 @@
 import {
-	KeyRepo,
-	KeysEnum,
+	type KeyRepo,
+	type KeysEnum,
 } from '@functions/authGatewayFnc/app/repositories/keyRepo.abstract';
-import { Adapters } from '@functions/authGatewayFnc/app/adapters';
-import { Key } from '@functions/authGatewayFnc/app/entities/key';
-import { FirestoreService } from '../..';
+import { type Adapters } from '@functions/authGatewayFnc/app/adapters';
+import { type Key } from '@functions/authGatewayFnc/app/entities/key';
+import { type FirestoreService } from '../..';
 import { FirestoreErr } from '../../err/firestoreErr';
 import { firestoreKeyDTO } from '../../dto/key.dto';
-import { FirestoreKeyMapper, IToFlatReturn } from '../../mapper/key';
-import { TraceHandler } from '@functions/authGatewayFnc/infra/configs/tracing';
+import { FirestoreKeyMapper, type IToFlatReturn } from '../../mapper/key';
+import { type TraceHandler } from '@functions/authGatewayFnc/infra/configs/tracing';
 
 export class FirestoreKey implements KeyRepo {
 	constructor(

@@ -1,9 +1,9 @@
-import { Firestore } from 'firebase-admin/firestore';
-import { Key } from './authGatewayFnc/app/entities/key';
-import { Pool } from 'pg';
-import { TraceHandler } from './authGatewayFnc/infra/configs/tracing';
+import { type Firestore } from 'firebase-admin/firestore';
+import { type Key } from './authGatewayFnc/app/entities/key';
+import { type Pool } from 'pg';
+import { type TraceHandler } from './authGatewayFnc/infra/configs/tracing';
 
-interface IGlobalConstants {
+type IGlobalConstants = {
 	POSTGRES: {
 		CLIENT?: Pool;
 		IS_CONNECTED?: boolean;
@@ -16,7 +16,7 @@ interface IGlobalConstants {
 	TELEMETRY: {
 		INSTANCE?: TraceHandler;
 	};
-}
+};
 
 export const globalConstants: IGlobalConstants = {
 	POSTGRES: {},

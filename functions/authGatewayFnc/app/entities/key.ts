@@ -1,19 +1,19 @@
-import { TReplace } from '@functions/authGatewayFnc/utils/replace';
+import { type TReplace } from '@functions/authGatewayFnc/utils/replace';
 import { randomUUID } from 'node:crypto';
 
-interface INode {
+type INode = {
 	content: string;
 	buildedAt: number;
-}
+};
 
-export interface IKeyProps {
+export type IKeyProps = {
 	id: string;
 	name: string;
 	prev?: INode;
 	actual: INode;
 	ttl: number;
 	renewTime: number;
-}
+};
 
 type TInput = TReplace<
 	TReplace<IKeyProps, { id?: string }>,
@@ -21,7 +21,7 @@ type TInput = TReplace<
 >;
 
 export class Key {
-	private props: IKeyProps;
+	private readonly props: IKeyProps;
 
 	constructor(input: TInput) {
 		this.props = {
@@ -52,6 +52,7 @@ export class Key {
 	get name() {
 		return this.props.name;
 	}
+
 	set name(input: string) {
 		this.props.name = input;
 	}
@@ -59,6 +60,7 @@ export class Key {
 	get prev() {
 		return this.props.prev;
 	}
+
 	set prev(input: INode | undefined) {
 		this.props.prev = input ? { ...input } : undefined;
 	}
@@ -66,6 +68,7 @@ export class Key {
 	get actual() {
 		return this.props.actual;
 	}
+
 	set actual(input: INode) {
 		this.props.actual = { ...input };
 	}
@@ -73,6 +76,7 @@ export class Key {
 	get ttl() {
 		return this.props.ttl;
 	}
+
 	set ttl(input: number) {
 		this.props.ttl = input;
 	}
@@ -80,6 +84,7 @@ export class Key {
 	get renewTime() {
 		return this.props.renewTime;
 	}
+
 	set renewTime(input: number) {
 		this.props.renewTime = input;
 	}

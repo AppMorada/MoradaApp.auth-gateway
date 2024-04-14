@@ -1,4 +1,4 @@
-import { Services } from '@functions/authGatewayFnc/app/services';
+import { type Services } from '@functions/authGatewayFnc/app/services';
 import { ScanJwtMiddleware } from './scanJwtToken.middleware';
 
 export class Middlewares {

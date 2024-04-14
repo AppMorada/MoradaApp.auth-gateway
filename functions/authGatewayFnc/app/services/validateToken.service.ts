@@ -1,17 +1,17 @@
-import { JwtAdapter } from '../adapters/jwt.abstract';
-import { Key } from '../entities/key';
-import { KeyRepo, KeysEnum } from '../repositories/keyRepo.abstract';
+import { type JwtAdapter } from '../adapters/jwt.abstract';
+import { type Key } from '../entities/key';
+import { type KeyRepo, type KeysEnum } from '../repositories/keyRepo.abstract';
 import { ServiceErrors } from './error';
 
-export interface IValidateTokenServiceReturnableData {
+export type IValidateTokenServiceReturnableData = {
 	sigState: 'OK' | 'DEPREACATED';
 	decodedToken: any;
-}
+};
 
-interface IProps {
+type IProps = {
 	name: KeysEnum;
 	token: string;
-}
+};
 
 export class ValidateTokenService {
 	constructor(
@@ -43,7 +43,7 @@ export class ValidateTokenService {
 		const buildedAtFloor = Math.floor(key.prev!.buildedAt / 1000);
 		if (buildedAtFloor > iat) throw new ServiceErrors('Token expirado');
 
-		const signatureContent = key!.prev!.content;
+		const signatureContent = key.prev!.content;
 
 		try {
 			this.jwtAdapter.validate(token, signatureContent);

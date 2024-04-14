@@ -1,4 +1,4 @@
-import { Firestore } from 'firebase-admin/firestore';
+import { type Firestore } from 'firebase-admin/firestore';
 import { initializeApp } from 'firebase-admin/app';
 import admin from 'firebase-admin';
 import { globalConstants } from '../../../../constants';
@@ -18,7 +18,7 @@ export class FirestoreService {
 			});
 
 			const terminate = async () =>
-				await globalConstants.FIRESTORE!.INSTANCE!.terminate();
+				globalConstants.FIRESTORE.INSTANCE!.terminate();
 
 			process.on('SIGTERM', terminate);
 			process.on('SIGINT', terminate);

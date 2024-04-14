@@ -1,6 +1,6 @@
 import { Key } from '@functions/authGatewayFnc/app/entities/key';
 
-export interface IToFlatReturn {
+export type IToFlatReturn = {
 	name: string;
 	prev_Content?: string;
 	prev_BuildedAt?: number;
@@ -8,7 +8,7 @@ export interface IToFlatReturn {
 	actual_BuildedAt: number;
 	ttl: number;
 	renewTime: number;
-}
+};
 
 export class FirestoreKeyMapper {
 	static toFlat(input: Key): IToFlatReturn {
@@ -34,9 +34,9 @@ export class FirestoreKeyMapper {
 			prev:
 				input.prev_BuildedAt && input.prev_Content
 					? {
-							buildedAt: input.prev_BuildedAt,
-							content: input.prev_Content,
-						}
+						buildedAt: input.prev_BuildedAt,
+						content: input.prev_Content,
+					}
 					: undefined,
 			name: input.name,
 			id: input.name,

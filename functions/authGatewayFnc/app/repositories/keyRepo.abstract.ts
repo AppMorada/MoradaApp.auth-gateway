@@ -1,4 +1,4 @@
-import { Key } from '../entities/key';
+import { type Key } from '../entities/key';
 
 export enum KeysEnum {
 	ACCESS_TOKEN_KEY = 'ACCESS_TOKEN_KEY',

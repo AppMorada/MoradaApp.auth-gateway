@@ -9,7 +9,7 @@ class CondominiumMemberSeed {
       password: config.password,
       port: parseInt(config.port),
       database: config.pathname.substring(1),
-      ssl: process.env.NODE_ENV === 'production' ? {
+      ssl: process.env.DATABASE_SSL ? {
         rejectUnauthorized: true
       } : false
     })

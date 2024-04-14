@@ -1,4 +1,4 @@
-import { IHttpErrorProps } from './types';
+import { type IHttpErrorProps } from './types';
 
 export class Unauthorized {
 	static buildResponse(input: IHttpErrorProps) {

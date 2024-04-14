@@ -7,7 +7,7 @@ export class UUID {
 	constructor(input: string) {
 		const regexp =
 			/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-		if (!input.match(regexp))
+		if (!regexp.exec(input))
 			throw new EntitieError({
 				message:
 					'O número de identificação não está formatado corretamente',
@@ -20,7 +20,7 @@ export class UUID {
 	static check(input: string): boolean {
 		const regexp =
 			/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-		if (!input.match(regexp)) return false;
+		if (!regexp.exec(input)) return false;
 		return true;
 	}
 

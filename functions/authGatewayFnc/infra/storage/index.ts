@@ -1,10 +1,10 @@
-import { KeyRepo } from '@functions/authGatewayFnc/app/repositories/keyRepo.abstract';
+import { type KeyRepo } from '@functions/authGatewayFnc/app/repositories/keyRepo.abstract';
 import { FirestoreService } from './firestore';
-import { CondominiumMemberRepo } from '@functions/authGatewayFnc/app/repositories/condominiumMemberRepo.abstract';
-import { Adapters } from '@functions/authGatewayFnc/app/adapters';
-import { TraceHandler } from '../configs/tracing';
+import { type CondominiumMemberRepo } from '@functions/authGatewayFnc/app/repositories/condominiumMemberRepo.abstract';
+import { type Adapters } from '@functions/authGatewayFnc/app/adapters';
+import { type TraceHandler } from '../configs/tracing';
 import { FirestoreRouteRepo } from './firestore/repositories/routeRepo';
-import { RouteRepo } from '@functions/authGatewayFnc/app/repositories/routeRepo.abstract';
+import { type RouteRepo } from '@functions/authGatewayFnc/app/repositories/routeRepo.abstract';
 import { FirestoreKey } from './firestore/repositories/keyRepo';
 import { PgHandler } from './pg';
 import { PgCondominiumMemberRepo } from './pg/repositories/condominiumMember';

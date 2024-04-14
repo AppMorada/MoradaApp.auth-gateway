@@ -1,8 +1,8 @@
 import { ErrorReportingHandler } from './errorReporting';
 import { JsonwebtokenAdapter } from './jsonwebtoken';
-import { JwtAdapter } from './jwt.abstract';
-import { LoggerAdapter } from './logger.abstract';
-import { ReportAdapter } from './reports.abtract';
+import { type JwtAdapter } from './jwt.abstract';
+import { type LoggerAdapter } from './logger.abstract';
+import { type ReportAdapter } from './reports.abtract';
 import { WinstonLoggerAdapter } from './winston';
 
 export class Adapters {
