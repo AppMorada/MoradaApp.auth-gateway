@@ -1,4 +1,4 @@
-import { LoggerAdapter } from '../logger.abstract';
+import { type LoggerAdapter } from '../logger.abstract';
 import winston from 'winston';
 
 export class WinstonLoggerAdapter implements LoggerAdapter {

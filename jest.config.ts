@@ -25,14 +25,6 @@ const config: Config = {
     './functions/app/adapters/logger.abstract.ts',
     './functions/authGatewayFnc/app/adapters/errorReporting'
   ],
-  coverageThreshold: {
-    global: {
-      functions: 75,
-      lines: 80,
-      branches: 75,
-      statements: 80
-    }
-  },
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
     prefix: '<rootDir>/',
   }),

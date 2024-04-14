@@ -1,7 +1,7 @@
-import { Storages } from '@functions/authGatewayFnc/infra/storage';
+import { type Storages } from '@functions/authGatewayFnc/infra/storage';
 import { ValidateTokenService } from './validateToken.service';
 import { CheckCondominiumMemberService } from './checkCondominiumMember.service';
-import { Adapters } from '../adapters';
+import { type Adapters } from '../adapters';
 
 export class Services {
 	constructor(

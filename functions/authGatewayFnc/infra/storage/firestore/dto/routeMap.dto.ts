@@ -1,10 +1,10 @@
 import { FirestoreErr } from '../err/firestoreErr';
 
-export interface IRouteMapDTOReturnableData {
+export type IRouteMapDTOReturnableData = {
 	name: string;
 	url: string;
 	aclRoleBased: number;
-}
+};
 
 export class RouteMapDTO {
 	static validate(input: any): IRouteMapDTOReturnableData {

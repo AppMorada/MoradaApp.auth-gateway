@@ -8,32 +8,30 @@ export class PgHandler {
 
 	constructor() {
 		if (!globalConstants.POSTGRES.IS_CONNECTED) {
-			const config = new URL(process.env.DATABASE_URL as string);
+			const config = new URL(process.env.DATABASE_URL!);
 			globalConstants.POSTGRES.CLIENT = new Pool({
 				host: config.hostname,
 				user: config.username,
 				password: config.password,
 				port: parseInt(config.port),
 				database: config.pathname.substring(1),
-				ssl:
-					process.env.NODE_ENV === 'production'
-						? {
-								rejectUnauthorized: true,
-							}
-						: false,
+				ssl: process.env.DATABASE_SSL
+					? {
+						rejectUnauthorized: true,
+					}
+					: false,
 			});
 
 			globalConstants.POSTGRES.IS_CONNECTED = true;
 
-			const end = async () =>
-				await globalConstants.POSTGRES.CLIENT!.end();
+			const end = async () => globalConstants.POSTGRES.CLIENT!.end();
 
 			process.on('SIGTERM', end);
 			process.on('SIGINT', end);
 			process.on('SIGBREAK', end);
 		}
 
-		this._instance = globalConstants.POSTGRES.CLIENT as Pool;
+		this._instance = globalConstants.POSTGRES.CLIENT!;
 	}
 
 	get instance() {

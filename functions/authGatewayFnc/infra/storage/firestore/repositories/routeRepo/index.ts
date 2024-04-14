@@ -1,7 +1,7 @@
-import { RouteRepo } from '@functions/authGatewayFnc/app/repositories/routeRepo.abstract';
+import { type RouteRepo } from '@functions/authGatewayFnc/app/repositories/routeRepo.abstract';
 import { RouteMap } from '@functions/authGatewayFnc/app/entities/routeMap';
-import { TraceHandler } from '@functions/authGatewayFnc/infra/configs/tracing';
-import { FirestoreService } from '../..';
+import { type TraceHandler } from '@functions/authGatewayFnc/infra/configs/tracing';
+import { type FirestoreService } from '../..';
 import { RouteMapDTO } from '../../dto/routeMap.dto';
 
 export class FirestoreRouteRepo implements RouteRepo {
@@ -13,9 +13,9 @@ export class FirestoreRouteRepo implements RouteRepo {
 			this.firestoreService.instance.collection('route-map');
 	}
 
-	private routesMap: RouteMap[] = [];
+	private readonly routesMap: RouteMap[] = [];
 	private readonly collectionRef;
-	private isFirstQuery = true;
+	private readonly isFirstQuery = true;
 
 	async listenChanges() {
 		if (this.isFirstQuery) {
@@ -26,7 +26,10 @@ export class FirestoreRouteRepo implements RouteRepo {
 					'Firestore route map process',
 				);
 				const span = tracer.startSpan('Firestore - load route mapping');
-				if (!doc.exists) return span.end();
+				if (!doc.exists) {
+					span.end();
+					return;
+				}
 
 				const rawRouteMap = RouteMapDTO.validate({
 					name: doc.id,

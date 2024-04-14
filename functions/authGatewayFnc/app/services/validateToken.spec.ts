@@ -1,7 +1,7 @@
 import { InMemoryKeyRepo } from '@tests/inMemoryDb/repositories/key';
 import { JsonwebtokenAdapter } from '../adapters/jsonwebtoken';
 import { ValidateTokenService } from './validateToken.service';
-import { JwtAdapter } from '../adapters/jwt.abstract';
+import { type JwtAdapter } from '../adapters/jwt.abstract';
 import { Key } from '../entities/key';
 import { KeysEnum } from '../repositories/keyRepo.abstract';
 import { randomBytes } from 'crypto';
@@ -19,7 +19,7 @@ describe('ValidateTokenService Service', () => {
 		sut = new ValidateTokenService(keyRepo, jwtAdapter);
 	});
 
-	it("should validate the token and return sigState as 'OK'", async () => {
+	it('should validate the token and return sigState as \'OK\'', async () => {
 		const case1 = async () => {
 			// Testando o token mais novo possível e que usa a assinatura mais nova
 			const iat = Date.now();
@@ -93,7 +93,7 @@ describe('ValidateTokenService Service', () => {
 		await case2();
 	});
 
-	it("should validate the token and return sigState as 'DEPREACATED'", async () => {
+	it('should validate the token and return sigState as \'DEPREACATED\'', async () => {
 		const case1 = async () => {
 			// Testando o token mais velho possível que usa a assinatura depreciada
 			const actualDate = Date.now();

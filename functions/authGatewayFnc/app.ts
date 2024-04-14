@@ -1,4 +1,4 @@
-import { Request, Response } from '@google-cloud/functions-framework';
+import { type Request, type Response } from '@google-cloud/functions-framework';
 import { Storages } from './infra/storage';
 import httpProxy from 'http-proxy';
 import { Adapters } from './app/adapters';
@@ -7,8 +7,8 @@ import { Unauthorized } from './httpErrors/unauthorized';
 import { NotFound } from './httpErrors/notFound';
 import { Middlewares } from './infra/middleware';
 import { TraceHandler } from './infra/configs/tracing';
-import { Tracer } from '@opentelemetry/sdk-trace-base';
-import { IHttpErrorCallback } from './httpErrors/types';
+import { type Tracer } from '@opentelemetry/sdk-trace-base';
+import { type IHttpErrorCallback } from './httpErrors/types';
 import { globalConstants } from '@functions/constants';
 
 const proxy = httpProxy.createProxyServer();
@@ -88,31 +88,36 @@ export class App {
 			callbackErr: (serviceErr) => {
 				Unauthorized.buildResponse({
 					res,
-					callback: () =>
+					callback: () => {
 						log({
 							err: { statusCode: 401, ...serviceErr },
-						}),
+						});
+					},
 				});
 			},
 		});
 		if (!isJwtValid) return;
 
 		const { nextRoute, requestUrl } = await this.getAvailableRoute(req);
-		if (!nextRoute)
-			return NotFound.buildResponse({
+		if (!nextRoute) {
+			NotFound.buildResponse({
 				res,
 				callback: log,
 			});
+			return;
+		}
 
 		const memberExists = await this.services.checkCondominiumMember.exec({
 			aclRoleBased: nextRoute.aclRoleBased,
 			decodedToken: isJwtValid.decodedToken,
 		});
-		if (!memberExists)
-			return Unauthorized.buildResponse({
+		if (!memberExists) {
+			Unauthorized.buildResponse({
 				res,
 				callback: log,
 			});
+			return;
+		}
 
 		const pathname = requestUrl.toString().split('/')[4];
 		const parsedNextRoute = `${nextRoute?.url.toString()}${pathname ?? ''}`;

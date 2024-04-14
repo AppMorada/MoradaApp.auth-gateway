@@ -1,12 +1,12 @@
 import { UUID } from '../entities/VO/UUID';
-import { CondominiumMemberRepo } from '../repositories/condominiumMemberRepo.abstract';
+import { type CondominiumMemberRepo } from '../repositories/condominiumMemberRepo.abstract';
 
-interface IProps {
+type IProps = {
 	aclRoleBased: number;
 	decodedToken?: {
 		sub?: string;
 	};
-}
+};
 
 export class CheckCondominiumMemberService {
 	constructor(private readonly condominiumRepo: CondominiumMemberRepo) {}

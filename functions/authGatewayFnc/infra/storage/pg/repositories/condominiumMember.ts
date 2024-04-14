@@ -1,9 +1,9 @@
 import {
-	CondominiumMemberRepo,
-	IExistByRole,
+	type CondominiumMemberRepo,
+	type IExistByRole,
 } from '@functions/authGatewayFnc/app/repositories/condominiumMemberRepo.abstract';
-import { PgHandler } from '..';
-import { TraceHandler } from '@functions/authGatewayFnc/infra/configs/tracing';
+import { type PgHandler } from '..';
+import { type TraceHandler } from '@functions/authGatewayFnc/infra/configs/tracing';
 
 export class PgCondominiumMemberRepo implements CondominiumMemberRepo {
 	constructor(

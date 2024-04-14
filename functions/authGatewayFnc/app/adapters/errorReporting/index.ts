@@ -1,5 +1,5 @@
 import { ErrorReporting } from '@google-cloud/error-reporting';
-import { IReportError, ReportAdapter } from '../reports.abtract';
+import { type IReportError, type ReportAdapter } from '../reports.abtract';
 
 export class ErrorReportingHandler implements ReportAdapter {
 	private readonly handler?: ErrorReporting;
@@ -10,7 +10,7 @@ export class ErrorReportingHandler implements ReportAdapter {
 				projectId: process.env.LOGGING_PROJECT,
 				logLevel: 2,
 				reportMode: 'production',
-				credentials: JSON.parse(process.env.OBSERVER_AGENT as string),
+				credentials: JSON.parse(process.env.OBSERVER_AGENT),
 				serviceContext: {
 					service: process.env.SERVICE_NAME,
 					version: process.env.SERVICE_VERSION,

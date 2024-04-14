@@ -1,9 +1,12 @@
-import { JwtAdapter } from '../jwt.abstract';
+import { type JwtAdapter } from '../jwt.abstract';
 import { sign, decode, verify } from 'jsonwebtoken';
 
 export class JsonwebtokenAdapter implements JwtAdapter {
 	build(
-		payload: Record<string, any>,
+		payload: Record<
+			string,
+			string | Record<string, unknown> | undefined | number | boolean
+		>,
 		signature: string,
 		expiresAt: Date | number,
 	): string {

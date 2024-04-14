@@ -1,14 +1,14 @@
-import { Response } from '@google-cloud/functions-framework';
+import { type Response } from '@google-cloud/functions-framework';
 
-export interface IHttpErrorCallback {
+export type IHttpErrorCallback = {
 	err: {
 		name: string;
 		message: string;
 		statusCode: number;
 	};
-}
+};
 
-export interface IHttpErrorProps {
+export type IHttpErrorProps = {
 	res: Response;
 	err?: {
 		name?: string;
@@ -16,4 +16,4 @@ export interface IHttpErrorProps {
 		statusCode?: number;
 	};
 	callback: (input: IHttpErrorCallback) => void;
-}
+};

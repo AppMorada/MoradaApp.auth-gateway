@@ -1,7 +1,7 @@
-interface IProps {
+type IProps = {
 	entity: 'VO' | 'Entity';
 	message: string;
-}
+};
 
 export class EntitieError extends Error {
 	constructor(input: IProps) {

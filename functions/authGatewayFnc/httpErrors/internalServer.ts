@@ -1,4 +1,4 @@
-import { IHttpErrorProps } from './types';
+import { type IHttpErrorProps } from './types';
 
 export class InternalServerError {
 	static buildResponse(input: IHttpErrorProps) {
