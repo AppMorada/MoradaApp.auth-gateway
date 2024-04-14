@@ -21,7 +21,7 @@ jobs:
         with:
           credentials_json: '${{ secrets.DEV_GOOGLE_APP_CREDENTIALS_BASE64 }}'
 
-      - uses: google-github-actions/setup-gcloud@v1
+      - uses: google-github-actions/setup-gcloud@v2
         name: Set Cloud SDK
         id: set-gcloud
         with:
