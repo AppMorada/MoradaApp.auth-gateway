@@ -1,0 +1,26 @@
+import { UUID } from '../entities/VO/UUID';
+import { CondominiumMemberRepo } from '../repositories/condominiumMemberRepo.abstract';
+
+interface IProps {
+	aclRoleBased: number;
+	decodedToken?: {
+		sub?: string;
+	};
+}
+
+export class CheckCondominiumMemberService {
+	constructor(private readonly condominiumRepo: CondominiumMemberRepo) {}
+
+	async exec({ aclRoleBased, decodedToken }: IProps): Promise<boolean> {
+		if (typeof decodedToken?.sub !== 'string') return false;
+
+		const member = await this.condominiumRepo.existByRole({
+			userId: new UUID(decodedToken.sub),
+			aclRoleBased,
+		});
+
+		if (!member) return false;
+
+		return true;
+	}
+}

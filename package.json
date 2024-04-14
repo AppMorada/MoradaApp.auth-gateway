@@ -1,0 +1,89 @@
+{
+  "name": "MoradaApp.auth-gateway",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/functions/index.js",
+  "scripts": {
+    "lint": "eslint \"{functions,tests}/**/*.ts\"",
+    "dev": "dotenv -e .env -- sh -c \"./tools/functions.sh authGatewayFnc 8411\"",
+    "build": "tsc -p . --noEmit && swc ./functions --config-file ./.swcrc.json -d ./dist",
+    "lint:fix": "eslint --fix -c ./.eslintrc.js",
+    "lint:fix:global": "eslint --fix \"{functions,tests}/**/*.ts\" -c ./.eslintrc.js",
+    "format": "prettier --write",
+    "set-hooks": "husky",
+    "pre-commit": "lint-staged --allow-empty",
+    "commit": "cz",
+    "test": "dotenv -e .env.test -- jest --no-cache -c jest.unit.config.ts",
+    "test:e2e": "dotenv -e .env.prod -- jest --detectOpenHandles --no-cache -c jest.e2e.config.ts",
+    "test:all:cov": "dotenv -e .env.prod -- jest -c jest.config.ts --no-cache --detectOpenHandles --coverage",
+    "seed": "dotenv -e .env -- sh -c \"./tools/js/_run_all.sh\""
+  },
+  "license": "ISC",
+  "watch": {
+    "dev": {
+      "quiet": true,
+      "patterns": [
+        "dist"
+      ],
+      "delay": 1500,
+      "extensions": "js"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "lint-staged": {
+    "functions/**/*.(t|j)s": [
+      "pnpm format",
+      "pnpm lint:fix"
+    ]
+  },
+  "dependencies": {
+    "@google-cloud/error-reporting": "^3.0.5",
+    "@google-cloud/functions-framework": "^3.3.0",
+    "@google-cloud/opentelemetry-cloud-trace-exporter": "^2.1.0",
+    "@opentelemetry/exporter-zipkin": "^1.23.0",
+    "@opentelemetry/resources": "^1.23.0",
+    "@opentelemetry/sdk-trace-base": "^1.23.0",
+    "@opentelemetry/sdk-trace-node": "^1.23.0",
+    "@opentelemetry/semantic-conventions": "^1.23.0",
+    "firebase-admin": "^12.0.0",
+    "http-proxy": "^1.18.1",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.11.5",
+    "winston": "^3.13.0"
+  },
+  "devDependencies": {
+    "@commitlint/config-conventional": "^19.1.0",
+    "@swc/cli": "^0.3.12",
+    "@swc/core": "^1.4.12",
+    "@types/express": "^4.17.21",
+    "@types/http-proxy": "^1.17.14",
+    "@types/jest": "^29.5.12",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/pg": "^8.11.5",
+    "@types/supertest": "^6.0.2",
+    "@typescript-eslint/eslint-plugin": "^7.6.0",
+    "@typescript-eslint/parser": "^7.6.0",
+    "commitizen": "^4.3.0",
+    "commitlint": "^19.2.1",
+    "concurrently": "^8.2.2",
+    "cz-conventional-changelog": "^3.3.0",
+    "dotenv-cli": "^7.4.1",
+    "eslint": "^9.0.0",
+    "express": "^4.19.2",
+    "firebase-tools": "^13.7.1",
+    "husky": "^9.0.11",
+    "jest": "^29.7.0",
+    "lint-staged": "^15.2.2",
+    "npm-watch": "^0.11.0",
+    "prettier": "^3.2.5",
+    "supertest": "^6.3.4",
+    "ts-jest": "^29.1.2",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.4.4"
+  }
+}

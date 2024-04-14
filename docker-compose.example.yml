@@ -1,0 +1,56 @@
+version: "3"
+
+services:
+  createKeyFunc:
+    image: nicolascbv/moradaapp-key-manager:latest
+    restart: always
+    env_file: .env
+    hostname: createkeyfunc
+    command: pnpm functions:createkeyfunc
+    environment:
+      - GCP_PROJECT=link-manager-f612c
+      - FIRESTORE_EMULATOR_HOST=firestore:8081
+    ports:
+      - 7548:8411
+
+  firestore:
+    image: nicolascbv/local-fire
+    ports:
+      - 8081:8081
+    environment:
+      - FIRESTORE_PROJECT_ID=link-manager-f612c
+      - PORT=8081
+
+  postgres:
+    image: postgres
+    restart: always
+    hostname: db
+    ports:
+      - "4625:5432"
+    environment:
+      POSTGRES_DB: "mydb"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "password"
+    volumes:
+      - db:/var/lib/postgresql/data
+
+  tracing:
+    hostname: tracer
+    image: openzipkin/zipkin:latest
+    ports:
+      - 9411:9411
+
+  app:
+    build:
+      dockerfile: ./Dockerfile
+      context: .
+    hostname: app
+    volumes:
+      - .:/home/node/app
+    ports:
+      - 4513:8411
+      - 9229:9229
+
+volumes:
+  db:
+    driver: local
