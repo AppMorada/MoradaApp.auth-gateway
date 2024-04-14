@@ -2,10 +2,8 @@ name: CD - Deploy functions
 
 on:
   push:
-    branches: ['release/**']
-    paths:
-      - '.github/workflows/deploy-functions.yml'
-      - 'functions/**'
+    branches: 
+      - 'release/**'
 
 jobs:
   gcp:
