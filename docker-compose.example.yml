@@ -29,9 +29,7 @@ services:
       - 9411:9411
 
   app:
-    build:
-      dockerfile: ./Dockerfile
-      context: .
+    image: moradaapp/auth-gateway-devtool
     hostname: app
     volumes:
       - .:/home/node/app
