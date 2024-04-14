@@ -10,6 +10,9 @@ import { TraceHandler } from './infra/configs/tracing';
 import { type Tracer } from '@opentelemetry/sdk-trace-base';
 import { type IHttpErrorCallback } from './httpErrors/types';
 import { globalConstants } from '@functions/constants';
+import { RouteMap } from './app/entities/routeMap';
+import { UUID } from './app/entities/VO/UUID';
+import { BadRequest } from './httpErrors/badRequest';
 
 const proxy = httpProxy.createProxyServer();
 
@@ -66,6 +69,43 @@ export class App {
 		span.end();
 	}
 
+	private async handlwWithCondominiumRouteContext(
+		req: Request,
+		res: Response,
+		routeMap: RouteMap,
+		decodedToken: any,
+		log: ({ err }: IHttpErrorCallback) => void,
+	) {
+		let condominiumId: UUID | undefined;
+		try {
+			condominiumId = new UUID(String(req.query?.condominiumId));
+		} catch (err) {
+			BadRequest.buildResponse({
+				res,
+				callback: log,
+				err: {
+					message: String(err.message),
+				},
+			});
+			return false;
+		}
+
+		const memberExists = await this.services.checkCondominiumMember.exec({
+			aclRoleBased: routeMap!.aclRoleBased as number,
+			decodedToken,
+			condominiumId,
+		});
+		if (!memberExists) {
+			Unauthorized.buildResponse({
+				res,
+				callback: log,
+			});
+			return false;
+		}
+
+		return true;
+	}
+
 	public async exec(req: Request, res: Response) {
 		const tracer = this.tracer.getTracer('Main process');
 		const span = tracer.startSpan('Function execution');
@@ -83,7 +123,7 @@ export class App {
 			span.end();
 		};
 
-		const isJwtValid = await this.middlewares.scanJwt.exec({
+		const jwt = await this.middlewares.scanJwt.exec({
 			req,
 			callbackErr: (serviceErr) => {
 				Unauthorized.buildResponse({
@@ -96,7 +136,7 @@ export class App {
 				});
 			},
 		});
-		if (!isJwtValid) return;
+		if (!jwt) return;
 
 		const { nextRoute, requestUrl } = await this.getAvailableRoute(req);
 		if (!nextRoute) {
@@ -107,16 +147,15 @@ export class App {
 			return;
 		}
 
-		const memberExists = await this.services.checkCondominiumMember.exec({
-			aclRoleBased: nextRoute.aclRoleBased,
-			decodedToken: isJwtValid.decodedToken,
-		});
-		if (!memberExists) {
-			Unauthorized.buildResponse({
+		if (nextRoute.aclRoleBased) {
+			const result = await this.handlwWithCondominiumRouteContext(
+				req,
 				res,
-				callback: log,
-			});
-			return;
+				nextRoute,
+				jwt.decodedToken,
+				log,
+			);
+			if (!result) return;
 		}
 
 		const pathname = requestUrl.toString().split('/')[4];

@@ -1,6 +1,7 @@
 import { InMemoryCondominiumMemberRepo } from '@tests/inMemoryDb/repositories/condominiumMember';
 import { CheckCondominiumMemberService } from './checkCondominiumMember.service';
 import { minimalCondominiumMemberFactory } from '@tests/factories/minimalCondominiumMember';
+import { UUID } from '../entities/VO/UUID';
 
 describe('Check Condominium Member Service', () => {
 	let condominiumMemberRepo: InMemoryCondominiumMemberRepo;
@@ -18,6 +19,7 @@ describe('Check Condominium Member Service', () => {
 		expect(
 			sut.exec({
 				aclRoleBased: condominiumMember.role,
+				condominiumId: condominiumMember.condominiumId,
 				decodedToken: {
 					sub: condominiumMember?.userId?.value,
 				},
@@ -35,6 +37,7 @@ describe('Check Condominium Member Service', () => {
 		expect(
 			sut.exec({
 				aclRoleBased: 1,
+				condominiumId: condominiumMember.condominiumId,
 				decodedToken: {
 					sub: condominiumMember?.userId?.value,
 				},
@@ -47,6 +50,7 @@ describe('Check Condominium Member Service', () => {
 		expect(
 			sut.exec({
 				aclRoleBased: 1,
+				condominiumId: UUID.genV4(),
 			}),
 		).resolves.toEqual(false);
 	});

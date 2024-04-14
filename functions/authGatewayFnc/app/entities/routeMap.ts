@@ -1,7 +1,7 @@
 type IProps = {
 	name: string;
 	url: URL;
-	aclRoleBased: number;
+	aclRoleBased?: number | null;
 };
 
 export class RouteMap {
@@ -30,11 +30,11 @@ export class RouteMap {
 		this.props.url = input;
 	}
 
-	get aclRoleBased() {
+	get aclRoleBased(): number | null | undefined {
 		return this.props.aclRoleBased;
 	}
 
-	set aclRoleBased(input: number) {
+	set aclRoleBased(input: number | null | undefined) {
 		this.props.aclRoleBased = input;
 	}
 }

@@ -40,7 +40,7 @@ export class FirestoreRouteRepo implements RouteRepo {
 					new RouteMap({
 						name: rawRouteMap.name,
 						url: new URL(rawRouteMap.url),
-						aclRoleBased: rawRouteMap.aclRoleBased,
+						aclRoleBased: rawRouteMap?.aclRoleBased,
 					}),
 				);
 

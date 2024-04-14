@@ -21,14 +21,15 @@ class CondominiumMemberSeed {
        CREATE TABLE IF NOT EXISTS public.condominium_members (
           id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
           user_id uuid,
+          condominium_id uuid,
           role smallint DEFAULT '0'::smallint NOT NULL,
 
           CONSTRAINT "PK_condominium_member_id" PRIMARY KEY(id),
           CONSTRAINT "UQ_user_id" UNIQUE(user_id)
       );
 
-      INSERT INTO public.condominium_members (user_id, role) 
-      VALUES ('1465520e-f8be-445c-a8e6-34f708afc513', 1)
+      INSERT INTO public.condominium_members (user_id, condominium_id, role) 
+      VALUES ('1465520e-f8be-445c-a8e6-34f708afc513', '2378ff0e-f8be-445c-a8e6-34f7613fab84', 1)
       ON CONFLICT DO NOTHING;
     `)
 

@@ -3,6 +3,7 @@ import { type CondominiumMemberRepo } from '../repositories/condominiumMemberRep
 
 type IProps = {
 	aclRoleBased: number;
+	condominiumId: UUID;
 	decodedToken?: {
 		sub?: string;
 	};
@@ -11,12 +12,17 @@ type IProps = {
 export class CheckCondominiumMemberService {
 	constructor(private readonly condominiumRepo: CondominiumMemberRepo) {}
 
-	async exec({ aclRoleBased, decodedToken }: IProps): Promise<boolean> {
+	async exec({
+		aclRoleBased,
+		decodedToken,
+		condominiumId,
+	}: IProps): Promise<boolean> {
 		if (typeof decodedToken?.sub !== 'string') return false;
 
 		const member = await this.condominiumRepo.existByRole({
 			userId: new UUID(decodedToken.sub),
 			aclRoleBased,
+			condominiumId,
 		});
 
 		if (!member) return false;

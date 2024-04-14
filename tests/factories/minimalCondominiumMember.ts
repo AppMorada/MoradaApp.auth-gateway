@@ -6,6 +6,7 @@ type TOverride = Partial<IMinimalCondominiumMemberInput> & {id?: string | undefi
 export function minimalCondominiumMemberFactory(input: TOverride = {}) {
 	return new MinimalCondominiumMember({
 		userId: UUID.genV4().value,
+		condominiumId: UUID.genV4().value,
 		role: 1,
 		...input,
 	});
