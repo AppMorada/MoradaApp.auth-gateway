@@ -3,7 +3,7 @@ import { FirestoreErr } from '../err/firestoreErr';
 export type IRouteMapDTOReturnableData = {
 	name: string;
 	url: string;
-	aclRoleBased: number;
+	aclRoleBased?: number;
 };
 
 export class RouteMapDTO {
@@ -19,7 +19,9 @@ export class RouteMapDTO {
 			},
 			{
 				errMessage: 'ACL Role Based precisa ser um número',
-				isValid: typeof input.aclRoleBased === 'number',
+				isValid:
+					typeof input.aclRoleBased === 'number' ||
+					typeof input.aclRoleBased === 'undefined',
 			},
 		];
 

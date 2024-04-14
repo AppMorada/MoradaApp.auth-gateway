@@ -16,10 +16,14 @@ export class PgCondominiumMemberRepo implements CondominiumMemberRepo {
 		const span = tracer.startSpan('TypeOrm read process');
 
 		const q =
-			'SELECT EXISTS(SELECT 1 FROM public.condominium_members WHERE user_id = $1 AND role >= $2);';
+			'SELECT EXISTS(SELECT 1 FROM public.condominium_members WHERE user_id = $1 AND condominium_id = $2 AND role >= $3);';
 
 		const result = await this.pg.instance
-			.query(q, [input.userId.value, input.aclRoleBased])
+			.query(q, [
+				input.userId.value,
+				input.condominiumId.value,
+				input.aclRoleBased,
+			])
 			.catch((err) => {
 				span.recordException({
 					name: err?.name,

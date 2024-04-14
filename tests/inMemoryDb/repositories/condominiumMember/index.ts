@@ -13,8 +13,9 @@ export class InMemoryCondominiumMemberRepo implements CondominiumMemberRepo {
 
 		const searchedMember = this.condominiumMembers.find((item) => (
 			item.userId?.value === input.userId.value &&
-      input.aclRoleBased <= item.role &&
-      item.userId?.value
+			input.aclRoleBased <= item.role &&
+			item.userId?.value &&
+			item.condominiumId.value === input.condominiumId.value
 		));
 
 		return Boolean(searchedMember);

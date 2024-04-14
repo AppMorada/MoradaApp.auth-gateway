@@ -44,6 +44,7 @@ describe('Auth gateway E2E test', () => {
 		await request(app)
 			.get('/registryapi')
 			.set('authorization', `Bearer ${token}`)
+			.query({ condominiumId: '2378ff0e-f8be-445c-a8e6-34f7613fab84' })
 			.expect(200);
 	});
 

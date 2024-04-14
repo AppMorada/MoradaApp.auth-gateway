@@ -2,6 +2,7 @@ import { type UUID } from '../entities/VO/UUID';
 
 export type IExistByRole = {
 	userId: UUID;
+	condominiumId: UUID;
 	aclRoleBased: number;
 };
 
