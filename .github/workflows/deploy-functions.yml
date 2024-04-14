@@ -15,7 +15,7 @@ jobs:
         id: git-clone
         name: Cloning repository
 
-      - uses: google-github-actions/auth@v1
+      - uses: google-github-actions/auth@v2
         name: Google auth
         id: gcp-auth
         with:
