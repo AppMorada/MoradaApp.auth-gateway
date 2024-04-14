@@ -1,0 +1,39 @@
+name: CD - Deploy functions
+
+on:
+  push:
+    branches: ['release/**']
+    paths:
+      - '.github/workflows/deploy-functions.yml'
+      - 'functions/**'
+
+jobs:
+  gcp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        id: git-clone
+        name: Cloning repository
+
+      - uses: google-github-actions/auth@v1
+        name: Google auth
+        id: gcp-auth
+        with:
+          credentials_json: '${{ secrets.DEV_GOOGLE_APP_CREDENTIALS_BASE64 }}'
+
+      - uses: google-github-actions/setup-gcloud@v1
+        name: Set Cloud SDK
+        id: set-gcloud
+        with:
+          project-id: '${{ secrets.DEV_GOOGLE_PROJECT_ID }}'
+
+      - name: Deploy cloud function
+        run: |
+          gcloud functions deploy ${{ secrets.DEV_FUNCTION_NAME }} \
+            --project ${{ secrets.DEV_GOOGLE_PROJECT_ID }} \
+            --allow-unauthenticated \
+            --region=${{ secrets.DEV_GOOGLE_CLOUD_REGION }} \
+            --trigger-http \
+            --runtime=${{ secrets.DEV_CLOUD_FUNCTION_RUNTIME }} \
+            --update-labels=module=gateway \
+            --source=.

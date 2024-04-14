@@ -1,0 +1,1 @@
+export { authGatewayFnc } from './authGatewayFnc';
