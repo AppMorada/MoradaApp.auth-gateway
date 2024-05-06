@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "@google-cloud/error-reporting": "^3.0.5",
-    "@google-cloud/functions-framework": "^3.3.0",
+    "@google-cloud/functions-framework": "^3.4.0",
     "@google-cloud/opentelemetry-cloud-trace-exporter": "^2.1.0",
     "@opentelemetry/exporter-zipkin": "^1.23.0",
     "@opentelemetry/resources": "^1.23.0",
