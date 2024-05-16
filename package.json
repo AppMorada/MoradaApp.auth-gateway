@@ -6,6 +6,7 @@
     "lint": "eslint -c ./.eslintrc.js ./{functions,tests}/**/*.ts",
     "dev": "dotenv -e .env -- sh -c \"./tools/functions.sh authGatewayFnc 8411\"",
     "build": "tsc -p . --noEmit && swc ./functions --config-file ./.swcrc.json -d ./dist",
+    "build:prod": "webpack --config webpack-prod.js",
     "lint:fix": "eslint --fix -c ./.eslintrc.js",
     "lint:fix:global": "eslint --fix {functions,tests}/**/*.ts -c ./.eslintrc.js",
     "format": "prettier --write",
@@ -81,9 +82,13 @@
     "npm-watch": "^0.11.0",
     "prettier": "^3.2.5",
     "supertest": "^6.3.4",
+    "swc-loader": "^0.2.6",
+    "terser-webpack-plugin": "^5.3.10",
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4"
   }
 }
