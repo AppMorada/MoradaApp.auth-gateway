@@ -15,6 +15,7 @@ export class FirestoreService {
 			globalConstants.FIRESTORE.INSTANCE = admin.firestore();
 			globalConstants.FIRESTORE.INSTANCE.settings({
 				ignoreUndefinedProperties: true,
+				databaseId: process.env.FIRESTORE_DATABASE_ID,
 			});
 
 			const terminate = async () =>

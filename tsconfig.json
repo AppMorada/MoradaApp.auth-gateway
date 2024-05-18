@@ -31,5 +31,7 @@
       "@tests/*": ["./tests/*"],
       "@tools/*": ["./tools/js/*"]
     }
-  }
+  },
+  "include": ["functions/**/*"],
+  "exclude": ["node_modules"]
 }
