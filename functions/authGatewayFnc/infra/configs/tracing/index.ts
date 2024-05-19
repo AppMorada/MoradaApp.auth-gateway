@@ -18,7 +18,7 @@ export class TraceHandler {
 
 	constructor() {
 		this.exporter =
-			process.env.NODE_ENV !== 'production'
+			process.env.NODE_ENV !== 'production' || !process.env.OBSERVER_AGENT
 				? new ZipkinExporter({
 					serviceName: process.env.SERVICE_NAME,
 					url: process.env.ZIPKIN_TRACE_URL,
@@ -29,7 +29,7 @@ export class TraceHandler {
 				});
 
 		this.spanProcessor =
-			process.env.NODE_ENV !== 'production'
+			process.env.NODE_ENV !== 'production' || !process.env.OBSERVER_AGENT
 				? new SimpleSpanProcessor(this.exporter)
 				: new BatchSpanProcessor(this.exporter);
 
