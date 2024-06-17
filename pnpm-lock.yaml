@@ -104,8 +104,8 @@ devDependencies:
     specifier: ^13.7.2
     version: 13.7.2
   globals:
-    specifier: ^15.0.0
-    version: 15.0.0
+    specifier: ^15.6.0
+    version: 15.6.0
   husky:
     specifier: ^9.0.11
     version: 9.0.11
@@ -4977,8 +4977,8 @@ packages:
       type-fest: 0.20.2
     dev: true
 
-  /globals@15.0.0:
-    resolution: {integrity: sha512-m/C/yR4mjO6pXDTm9/R/SpYTAIyaUB4EOzcaaMEl7mds7Mshct9GfejiJNQGjHHbdMPey13Kpu4TMbYi9ex1pw==}
+  /globals@15.6.0:
+    resolution: {integrity: sha512-UzcJi88Hw//CurUIRa9Jxb0vgOCcuD/MNjwmXp633cyaRKkCWACkoqHCtfZv43b1kqXGg/fpOa8bwgacCeXsVg==}
     engines: {node: '>=18'}
     dev: true
 
